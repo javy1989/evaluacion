@@ -1,0 +1,88 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="/WEB-INF/template-home.xhtml">
+    <ui:define name="head">
+        <script type="text/javascript">
+            function skinChart() {
+                this.cfg.shadow = false;
+                this.cfg.title = '';
+                this.cfg.seriesColors = ['#3E98D3', '#EF3F61', '#2BB673', '#F15732'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#ffffff',
+                    gridLineColor: '#F5F5F5',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#666F77'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    lineWidth: 1,
+                    markerOptions: {
+                        shadow: false,
+                        size: 7,
+                        style: 'circle'
+                    }
+                }
+            }
+        </script>
+
+    </ui:define>
+    <ui:define name="content">
+        <div class="Container">
+            <div class="Container100 Responsive100">
+                <div class="Card">
+                    <div class="CardTopic TexAlCenter"></div>
+                    <div class="CardTopic">Resultados de Test</div>
+                    <div class="SeparatorFull"></div>
+                    <h:form id="list">
+                        <p:dataTable id="chart" value="#{chartTcemoControler.listadoResultado}" var="cha" reflow="true"> 
+                            <p:column headerText="Areas" width="300">
+                                <h:outputText value="#{cha.subclase.detalle}/#{cha.subclase.codigo}"/>
+                            </p:column>
+                            <p:column headerText="Puntaje" >                                
+                                <h:outputText value="#{cha.valor}"/>
+                            </p:column>
+                            <p:column headerText="Categoria" width="90">
+                                <h:outputText value="#{cha.idmatriz.categoria}"/>
+                            </p:column>
+                            <p:column headerText="Percentil" width="70">
+                                <h:outputText value="#{cha.idpercentil.percentil}"/>
+                            </p:column>
+                        </p:dataTable>
+                        <p/>
+                        <p:panelGrid columns="4">
+                            <h:outputText value="Prueba Completa"/>
+                            <h:outputText value="#{chartTcemoControler.total}" style="font-weight: bold"/>
+                            <h:outputText value="Categoria"/>
+                            <h:outputText value="#{chartTcemoControler.matrizTotal.categoria}" style="font-weight: bold;"/>
+                        </p:panelGrid>
+                    </h:form>
+                </div>
+            </div>
+            <div class="Container100 Responsive100 NoIndent">
+                <div class="Container100">
+                    <div class="Card">
+                        <div class="CardTopic TexAlCenter">Conociendo Emociones</div>
+                        <div class="SeparatorFull"></div>
+                        <h:form id="chart">
+                            <p:chart id="line" type="line" model="#{chartTcemoControler.lineChartModel}" responsive="true"/>    
+                            <div class="EmptyBox40"/>
+                            <center>
+                                <p:button outcome="/paginas/home.jsf" value="Terminar" icon="fa fa-close"/>    
+                            </center>
+                        </h:form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

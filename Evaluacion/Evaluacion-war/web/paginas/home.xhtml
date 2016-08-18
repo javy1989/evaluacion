@@ -1,0 +1,22 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template-home.xhtml">
+
+    <ui:define name="head">
+        <script type="text/javascript">
+            if (history.forward(1)) {
+                location.replace(history.forward(1));
+            }
+        </script>
+    </ui:define>
+    <ui:define name="content">
+        <p:panel header="Bienvenido">
+            <p:panelGrid id="grid" columns="1" class="">
+                <img src="#{request.contextPath}/resources/images/test.jpg"/>
+            </p:panelGrid>
+        </p:panel>
+    </ui:define>
+</ui:composition>

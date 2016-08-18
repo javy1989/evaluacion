@@ -1,0 +1,69 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template-home.xhtml">
+    <ui:define name="head">
+        <script type="text/javascript">
+            if (history.forward(1)) {
+                location.replace(history.forward(1));
+            }
+        </script>
+    </ui:define>
+    <ui:define name="content">
+        <div class="Container   ">
+            <div class="Container100 Responsive50">
+                <div class="Card">
+                    <div class="Container100">
+                        <div class="CardTopic"> Instrucciones:</div>
+                        <div class="SeparatorFull"/>
+                        <span class="Leaden Fs14 FontLight">
+                            #{msg.segundoMensajeSatisfaccion}
+                        </span>
+                        <span class="Leaden Fs14 FontBold">
+                            #{msg.respuestas}
+                        </span>
+                        <p/>
+                        <span class="Lead Fs14 FontLight">
+                            #{msg.respuestaOpcion}
+                        </span>
+                        <span class="Lead Fs14 FontBold">
+                            #{msg.respuestaMala }
+                        </span>
+                    </div>
+
+                    <div class="Container100 Responsive100">
+                        <h:form id="form">
+                            <p:accordionPanel value="#{satisfaccionPadreControler.listaSubClase}" var="sub" multiple="false">
+                                <p:tab title="#{sub.detalle}">
+                                    <p:dataTable  id="res" var="resp" value="#{satisfaccionPadreControler.listaRespuestaUsuario}"
+                                                  reflow="true">
+                                        <p:column rendered="#{resp.pregunta.subclase.subclasePK.idsubclase == sub.subclasePK.idsubclase}" width="50">
+                                            <h:outputLabel value="#{resp.pregunta.detalle}"/>
+                                        </p:column>
+                                        <p:column rendered="#{resp.pregunta.subclase.subclasePK.idsubclase == sub.subclasePK.idsubclase}" class="Responsive100" >
+                                            <p:inputText value="#{resp.respuesta.descripcion}" rendered="#{resp.pregunta.tipo=='A'}"  style="padding: 0 10px 0 10px;width: 350px;height:50px;" maxlength="300" onkeyup="this.value = this.value.toUpperCase();" />
+                                            <p:selectOneRadio columns="5" value="#{resp.respuesta.idrespuesta}" rendered="#{resp.pregunta.tipo=='C'}" required="true" requiredMessage="Responder pregunta #{resp.pregunta.preguntaPK.idpregunta}">
+                                                <f:selectItems var="res" value="#{satisfaccionPadreControler.getListaRespuesta(resp.pregunta)}"
+                                                               itemLabel="#{res.codigo}"
+                                                               itemValue="#{res.idrespuesta}">
+                                                </f:selectItems>
+                                                <p:ajax event="valueChange" update="@this"/>
+                                            </p:selectOneRadio>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:tab>
+                            </p:accordionPanel>
+                            <center>
+                                <br/>
+                                <p:commandButton value="Guardar" action="#{satisfaccionPadreControler.guardar()}" rendered="#{satisfaccionPadreControler.listaSubClase.size()>0 and satisfaccionPadreControler.boton}" update=":growl" styleClass="CyanButton" icon="fa fa-save"/>
+                                <p:button value="Cancelar" outcome="/paginas/home.jsf" styleClass="CyanButton" icon="fa fa-ban"/>
+                            </center>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

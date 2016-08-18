@@ -1,0 +1,56 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template-home.xhtml">
+    <ui:define name="content">
+        <div class="Container  ui-fluid">
+            <div class="Container100">
+                <div class="Card">
+                    <div class="Container100">
+                        <div class="CardTopic">#{msg.cabeceraClimaFamiliar}</div>
+                        <div class="SeparatorFull"/>
+                        <span class="Leaden Fs14 FontLight">
+                            #{msg.primerMensajeClima}
+                        </span>
+                        <span class="Leaden Fs14 FontBold">
+                            #{msg.segundoMensajeClima}
+                        </span>
+                    </div>
+
+                    <div class="Container100 Responsive100">
+                        <h:form id="data">
+                            <p:dataTable id="list" value="#{testCfsoControler.listaRespuestaUsuario}" var="resp"
+                                         rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15"  reflow="true">
+                                <p:column headerText="Descripcion Pregunta">
+                                    <h:outputText value="#{resp.pregunta.detalle}"/>
+                                </p:column>
+
+                                <p:column headerText="Respuestas" width="150">
+                                    <p:selectOneRadio columns="2" layout="grid" value="#{resp.respuesta.idrespuesta}"  required="true" requiredMessage="Preguntas sin contestar">
+                                        <f:selectItems var="res" value="#{testCfsoControler.getListaRespuesta(resp.pregunta)}"
+                                                       itemLabel="#{res.codigo}"
+                                                       itemValue="#{res.idrespuesta}">
+                                        </f:selectItems>
+                                    </p:selectOneRadio>
+                                </p:column>
+                            </p:dataTable>
+                            <center>
+                                <br/>
+                                <p:commandButton value="Guardar" action="#{testCfsoControler.guardar()}" rendered="#{testCfsoControler.listaSubClase.size()>0 and testCfsoControler.boton}" 
+                                                 update=":growl" 
+                                                 styleClass="CyanButton" 
+                                                 icon="fa fa-save"
+                                                 style="width: auto;"/>
+                                <p:button value="Cancelar" outcome="/paginas/home.jsf" styleClass="CyanButton" icon="fa fa-ban"
+                                          style="width: auto;"/>
+                            </center>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

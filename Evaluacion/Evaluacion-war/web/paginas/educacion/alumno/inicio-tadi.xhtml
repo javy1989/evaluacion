@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template-home.xhtml">
+    <ui:define name="content">
+        <div class="Container  ui-fluid">
+            <div class="Container100">
+                <div class="Card">
+                    <h:form id="forma">
+                        <div class="CardTopic TexAlCenter">Cuestionario de Aptitudes Difenciales</div>
+                        <div class="SeparatorFull"/>
+                        <div class="Container100 Responsive50">
+                            <div class="EmptyBox10"/>
+                            <span class="Leaden Fs14 FontBold">
+                                Alcance:
+                            </span>
+                            <div class="EmptyBox10"/>
+                            <span class="Leaden Fs14 FontLight">
+                                El cuestionario permite medir la capacidad de los estudiantes 
+                                para aprender o para actuar eficazmente en un cierto número de áreas, 
+                                así como para evaluar su potencial.
+                            </span>
+
+                            <div class="EmptyBox10"/>
+                            <span class="Leaden Fs14 FontBold">
+                                Areas:
+                            </span>
+                            <p/>
+                            <ul>
+                                <li class="Leaden Fs14 FontLight">Aptitud verbal</li>
+                                <li class="Leaden Fs14 FontLight">Aptitud matemática</li>
+                                <li class="Leaden Fs14 FontLight">Aptitud espacial</li>
+                            </ul>
+                            
+
+
+                            <span class="Leaden Fs14 FontBold">
+                                Instrucciones:
+                            </span>
+
+                            <span class="Leaden Fs14 FontLight">
+                                El cuestionario tendra una duración de 1 hora.
+                            </span>
+
+                            <div class="EmptyBox10"/>
+                            <h:graphicImage name="tafi.jpg" library="images" style="width:150px; height:150px;"/>    
+                        </div>
+                        <f:metadata>
+                            <f:event type="preRenderView" listener="#{inicioTadiControler.init()}"/>
+                        </f:metadata>
+                        <div class="EmptyBox20"/>
+                        <center>
+                            <p:commandButton value="Iniciar Test"  action="#{testTadiControler.init()}" styleClass="CyanButton" icon="fa fa-star Fs16 White" style="width: auto;" rendered="#{inicioTadiControler.boton}"/>    
+                        </center>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

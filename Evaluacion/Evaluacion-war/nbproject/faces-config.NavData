@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only">
+        <Node id="paginas/educacion/representante/chart-tsap.xhtml" x="610" y="449" zoom="true"/>
+        <Node id="paginas/educacion/representante/test-tsap.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="paginas/sistema/psicologo/lista-test.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="login.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="paginas/sistema/psicologo/detalle-test.xhtml" x="656" y="334" zoom="true"/>
+        <Node id="loginadm.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="paginas/educacion/alumno/test-tcfso.xhtml" x="667" y="596" zoom="true"/>
+        <Node id="paginas/home.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="paginas/educacion/representante/inicio-tsap.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="paginas/educacion/alumno/chart-tcfso.xhtml" x="663" y="704" zoom="true"/>
+        <Node id="paginas/educacion/alumno/inicio-tcfso.xhtml" x="659" y="460" zoom="true"/>
+    </Scope>
+    <Scope Scope="Project">
+        <Node id="paginas/educacion/representante/chart-tsap.xhtml" x="77" y="583" zoom="true"/>
+        <Node id="login.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="paginas/educacion/alumno/chart-tcemo.xhtml" x="836" y="790" zoom="true"/>
+        <Node id="paginas/sistema/administrador/pregunta.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="paginas/home.xhtml" x="400" y="150" zoom="false"/>
+        <Node id="paginas/educacion/alumno/chart-tcfso.xhtml" x="830" y="571" zoom="true"/>
+        <Node id="errorpages/error.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="404.xhtml" x="96" y="621" zoom="true"/>
+        <Node id="paginas/educacion/alumno/inicio-tadi.xhtml" x="322" y="637" zoom="true"/>
+        <Node id="paginas/educacion/representante/test-tsap.xhtml" x="95" y="494" zoom="true"/>
+        <Node id="paginas/educacion/alumno/inicio-tcemo.xhtml" x="819" y="655" zoom="true"/>
+        <Node id="paginas/sistema/psicologo/lista-test.xhtml" x="917" y="75" zoom="true"/>
+        <Node id="paginas/educacion/alumno/chart-tadi.xhtml" x="334" y="787" zoom="true"/>
+        <Node id="paginas/sistema/psicologo/detalle-test.xhtml" x="981" y="344" zoom="true"/>
+        <Node id="loginadm.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="paginas/educacion/alumno/test-tcemo.xhtml" x="826" y="725" zoom="true"/>
+        <Node id="paginas/educacion/alumno/test-tadi.xhtml" x="344" y="720" zoom="true"/>
+        <Node id="paginas/educacion/alumno/test-tcfso.xhtml" x="834" y="510" zoom="true"/>
+        <Node id="paginas/educacion/representante/inicio-tsap.xhtml" x="95" y="357" zoom="true"/>
+        <Node id="inicio.xhtml" x="81" y="292" zoom="true"/>
+        <Node id="paginas/educacion/alumno/inicio-tcfso.xhtml" x="800" y="441" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations">
+        <Node id="paginas/educacion/representante/chart-tsap.xhtml" x="100" y="556" zoom="true"/>
+        <Node id="paginas/educacion/representante/test-tsap.xhtml" x="68" y="506" zoom="true"/>
+        <Node id="paginas/sistema/psicologo/lista-test.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="paginas/sistema/psicologo/detalle-test.xhtml" x="679" y="355" zoom="true"/>
+        <Node id="login.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="loginadm.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="paginas/educacion/alumno/test-tcfso.xhtml" x="667" y="596" zoom="true"/>
+        <Node id="paginas/home.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="paginas/educacion/representante/inicio-tsap.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="paginas/educacion/alumno/chart-tcfso.xhtml" x="663" y="704" zoom="true"/>
+        <Node id="paginas/educacion/alumno/inicio-tcfso.xhtml" x="659" y="460" zoom="true"/>
+    </Scope>
+</Scene>

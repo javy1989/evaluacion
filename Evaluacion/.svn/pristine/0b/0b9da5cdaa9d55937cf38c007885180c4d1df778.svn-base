@@ -1,0 +1,166 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="/WEB-INF/template-home.xhtml">
+    <ui:define name="content">
+        <div class="Container ui-fluid">
+            <div class="Container100">
+                <div class="Card">
+                    <h:form id="form">
+                        <div class="CardTopic">Configuración Nuevo Test</div>
+                        <span>Todos los campos marcados * son obligatorios </span>
+                        <div class="Separator"></div> 
+                        <p:panel>
+                            <p:panelGrid columns="4" columnClasses="ui-grid-col-1,ui-grid-col-3,ui-grid-col-2,ui-grid-col-4 " layout="grid" styleClass="ui-pagrelgrid-blank" style="border: 0px none; background-color: transparent;">
+                                <p:outputLabel value="Institución"/>
+                                <p:outputLabel value="#{detalleTestControlador.grupousuario.institucion.nombre}" rendered="#{detalleTestControlador.grupousuario != null}"/> 
+                                <p:outputLabel value="Test Asignados *"/>
+                                <p:selectOneMenu id="asig" value="#{detalleTestControlador.idAsignacion}" >
+                                    <f:selectItem itemValue="0" itemLabel="--Seleccione--" noSelectionOption="true"/>
+                                    <f:selectItems value="#{detalleTestControlador.listaTestAsignados}" var="test"
+                                                   itemValue="#{test.asignacionPK.idasignacion}"
+                                                   itemLabel="#{test.test.descripcion}--#{test.idinstitucion}">
+                                    </f:selectItems>
+                                    <p:ajax event="change" update="@this"/>
+                                </p:selectOneMenu>
+                            </p:panelGrid>
+                            <div class="CardTopic">Tiempo de Duración</div>
+                            <div class="Separator"></div>
+                            <p:panelGrid columns="4" columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2" layout="grid" styleClass="ui-pagrelgrid-blank" style="border: 0px none; background-color: transparent;position: relative;">
+                                <p:outputLabel for="fini" value="Fecha Inicio"/>
+                                <p:calendar id="fini" value="#{detalleTestControlador.configuracion.fechain}" mindate="#{detalleTestControlador.fechaMinima}" required="true" requiredMessage="Fecha inicio necesaria">
+                                    <p:ajax event="dateSelect" update="@this"/>
+                                </p:calendar>
+                                <p:outputLabel for="hini" value="Hora Inicio"/>
+                                <p:calendar id="hini" value="#{detalleTestControlador.horaIn}" pattern="HH:mm" timeOnly="true" minHour="#{detalleTestControlador.horaMinima}" maxHour="19" required="true" requiredMessage="Hora inicio necesaria">
+                                    <p:ajax event="dateSelect" update="@this"/>
+                                </p:calendar>
+                                <p:outputLabel for="ffin" value="Fecha Finalización"/>
+                                <p:calendar id="ffin" value="#{detalleTestControlador.configuracion.fechafin}" mindate="#{detalleTestControlador.fechaMinima}" required="true" requiredMessage="Fecha Finalización necesaria">
+                                    <p:ajax event="dateSelect" listener="#{detalleTestControlador.horaMinimacambio}" update="hfin"/>
+                                </p:calendar>
+                                <p:outputLabel for="hfin" value="Hora Finalización"/>
+                                <p:calendar id="hfin" value="#{detalleTestControlador.horaFin}" pattern="HH:mm" timeOnly="true" minHour="#{detalleTestControlador.horaF}" maxHour="19" required="true" requiredMessage="Hora Finalización necesaria">
+                                    <p:ajax event="dateSelect"  update="@this"/>
+                                </p:calendar>
+
+                            </p:panelGrid>
+                            <div class="EmptyBox10"/>
+                            <div class="CardTopic">Asignación a:</div>
+                            <div class="Separator"></div>
+
+                            <p:selectOneRadio value="#{detalleTestControlador.opcion}">
+                                <f:selectItem itemLabel="Docente" itemValue="DO"/>
+                                <f:selectItem itemLabel="Estudiante" itemValue="ES"/>
+                                <f:selectItem itemLabel="Representante" itemValue="RE"/>
+                                <p:ajax event="valueChange" update="@this"/>
+                            </p:selectOneRadio>
+                        </p:panel>
+
+                        <div class="EmptyBox20"/>                            
+                        <p:panel id="panelCom" widgetVar="com">
+                            <p:panelGrid columns="6" columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-1,ui-grid-col-4,ui-grid-col-1,ui-grid-col-4" layout="grid" styleClass="ui-pagrelgrid-blank" style="border: 0px none; background-color: transparent;position: relative;">
+                                <h:outputLabel value="Añio Lectivo"/>
+                                <p:selectOneMenu value="#{detalleTestControlador.idAnioLectivo}" >
+                                    <f:selectItem itemValue="0" itemLabel="--Seleccione--" noSelectionOption="true"/>
+                                    <f:selectItems value="#{detalleTestControlador.listaAnioLectivos}" var="anio"
+                                                   itemLabel="#{anio.aniolectivo}"
+                                                   itemValue="#{anio.id}"> 
+                                    </f:selectItems>
+                                    <p:ajax event="change" listener="#{detalleTestControlador.cargaComboNivel}" update="combonivel"/>
+                                </p:selectOneMenu>
+
+                                <h:outputLabel value="Nivel"/>
+                                <p:selectOneMenu id="combonivel" value="#{detalleTestControlador.idNivel}" >
+                                    <f:selectItem itemValue="0" itemLabel="--Seleccione--" noSelectionOption="true"/>
+                                    <f:selectItems value="#{detalleTestControlador.listaNiveles}" var="nivel"
+                                                   itemLabel="#{nivel.nombre} #{nivel.ciclo.nombre}"
+                                                   itemValue="#{nivel.id}">
+                                    </f:selectItems>
+                                    <p:ajax event="change" listener="#{detalleTestControlador.cargaComboParalelo}" update="comboparalelo" />
+                                </p:selectOneMenu>
+
+                                <h:outputLabel value="Paralelo"/>
+                                <p:selectOneMenu id="comboparalelo" value="#{detalleTestControlador.idParalelo}">
+                                    <f:selectItem itemValue="0" itemLabel="--Seleccione--" noSelectionOption="true"/>
+                                    <f:selectItems value="#{detalleTestControlador.listaParalelos}" var="paralelo"
+                                                   itemLabel="#{paralelo.paralelo}"
+                                                   itemValue="#{paralelo.id}">
+                                    </f:selectItems>
+                                    <p:ajax event="change" update="@this"/>
+                                </p:selectOneMenu>
+                            </p:panelGrid>
+                        </p:panel>
+                        <div class="EmptyBox20"/>
+                        <p:commandButton value="Ingresar" style="width: auto;" action="#{detalleTestControlador.nuevoDetalleConfig()}" update="@form" icon="fa fa-list-alt" process="@this" styleClass="CyanButton"/>
+                        <div class="EmptyBox30"/> 
+                        <h:form id="data">
+                            <p:dataTable id="list" value="#{detalleTestControlador.listaDetalle}" var="det" emptyMessage="No se ha agregado ninguna configuración de test"
+                                         rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15"  reflow="true"
+                                         selectionMode="single"
+                                         selection="#{detalleTestControlador.detalleConfSelected}" rowIndexVar="row" rowKey="#{det}" >
+                                <p:column headerText="Id">
+                                    <p:outputLabel value="#{row+1}"/>
+                                </p:column>
+                                <p:column headerText="Anio Lectivo">
+                                    <p:outputLabel value="#{detalleTestControlador.anioLectivo(det.idaniolectivo)}"/>
+                                </p:column>
+                                <p:column headerText="Nivel/Paralelo">
+                                    <p:outputLabel value="#{detalleTestControlador.nivel(det.idnivel)}--#{detalleTestControlador.paralelo(det.idparalelo)}"/>
+                                </p:column>
+                                <p:column headerText="Inicio Fecha/Hora">
+                                    <h:outputText value="#{detalleTestControlador.configuracion.fechain}">
+                                        <f:convertDateTime type="time" pattern="dd-MM-yyyy"/>
+                                    </h:outputText>
+                                    <h:outputText value="#{detalleTestControlador.configuracion.horain}" style="padding: 0 0 0 10px;">
+                                        <f:convertDateTime type="time" pattern="HH:mm"/>
+                                    </h:outputText>
+                                </p:column>
+                                <p:column headerText="Final Fecha/Hora">
+                                    <h:outputText value="#{detalleTestControlador.configuracion.fechafin}">
+                                        <f:convertDateTime  type="date" pattern="dd-MM-yyyy"/>
+                                    </h:outputText>
+                                    <h:outputText value="#{detalleTestControlador.configuracion.horafin}" style="padding: 0 0 0 10px;">
+                                        <f:convertDateTime  type="date" pattern="HH:mm"/>
+                                    </h:outputText>
+                                </p:column>
+                                <p:column headerText="Dirigido">
+                                    <h:outputText value="Representante" rendered="#{det.tipo=='RE'}"/>
+                                    <h:outputText value="Estudiante" rendered="#{det.tipo=='ES'}"/>
+                                    <h:outputText value="Docente" rendered="#{det.tipo=='DO'}"/>
+                                </p:column>
+                                <p:column headerText="Acciones" width="250">
+                                    <p:commandButton value="Eliminar" icon="fa fa-ban" style="width: auto;"  onclick="PF('confirmDelete').show();" update="@form" styleClass="CyanButton">
+                                        <f:setPropertyActionListener value="#{row}" target="#{detalleTestControlador.filaSeleccionada}"/>
+                                        <f:setPropertyActionListener value="#{det}" target="#{detalleTestControlador.detalleConfSelected}"/>
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>
+                            <p:confirmDialog id="dlgEliminar" message="Está seguro de borrar el registro?" header="Advertencia"
+                                             severity="alert" widgetVar="confirmDelete">
+                                <p:commandButton value="Si,Aceptar"
+                                                 action="#{detalleTestControlador.eliminar()}" update=":form:data:list reg"
+                                                 oncomplete="PF('confirmDelete').hide();" styleClass="CyanButton">
+                                    <p:ajax event="click" update="reg"/>
+                                </p:commandButton>
+                                <p:commandButton value="No, Cancelar"
+                                                 onclick="PF('confirmDelete').hide();" process="@this" styleClass="CyanButton"/>
+
+                            </p:confirmDialog>
+                            <div class="EmptyBox20"/>
+                            <center>
+                                <p:commandButton id="reg" widgetVar="reg" value="Registrar" rendered="#{detalleTestControlador.listaDetalle.size()>0}" action="#{detalleTestControlador.guardar()}" icon="fa fa-university" style="width: auto;" styleClass="CyanButton"/>    
+                                <p:button value="Cancelar" outcome="/paginas/sistema/psicologo/lista-test.jsf" style="width: auto;" icon="fa fa-ban" styleClass="CyanButton"/>
+                            </center>
+                        </h:form>
+                    </h:form>
+                </div>
+            </div>
+
+        </div>
+    </ui:define>
+</ui:composition>

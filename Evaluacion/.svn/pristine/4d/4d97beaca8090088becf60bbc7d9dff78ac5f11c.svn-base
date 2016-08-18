@@ -1,0 +1,97 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="/WEB-INF/template-home.xhtml">
+    <ui:define name="head">
+        <script type="text/javascript">
+            function skinChart() {
+                this.cfg.shadow = false;
+                this.cfg.title = '';
+                this.cfg.seriesColors = ['#3E98D3', '#EF3F61', '#2BB673', '#F15732'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#ffffff',
+                    gridLineColor: '#F5F5F5',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#666F77'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    lineWidth: 1,
+                    markerOptions: {
+                        shadow: false,
+                        size: 7,
+                        style: 'circle'
+                    }
+                }
+            }
+        </script>
+
+    </ui:define>
+    <ui:define name="content">
+        <div class="Container">
+            <div class="Container100 Responsive100">
+                <div class="Card">
+                    <div class="CardTopic TexAlCenter"></div>
+                    <div class="CardTopic">Resultados de Test</div>
+                    <div class="SeparatorFull"></div>
+                    <h:form id="list">
+                        <p:dataTable id="chart" value="#{chartTcfsoControlador.lista}" var="cha" reflow="true"> 
+                            <p:column headerText="Dimensión" width="200">
+                                <h:outputText value="#{cha.detalle}"/>
+                            </p:column>
+                            <p:column headerText="Subescala" >                                
+                                <ui:repeat var="sub" value="#{chartTcfsoControlador.subescala(cha.idClase)}" varStatus="status">
+                                    <p/>
+                                    <p:column >
+                                        <h:outputText value="#{sub.subclase.detalle}/#{sub.subclase.codigo}"/>
+                                    </p:column>    
+                                </ui:repeat>
+                            </p:column>
+                            <p:column headerText="Valor" width="90">
+                                <ui:repeat var="val" value="#{chartTcfsoControlador.subescala(cha.idClase)}" varStatus="status">
+                                    <p/>
+                                    <center>
+                                        <p:column >
+                                            <h:outputText value="#{val.valor}"/>
+                                        </p:column>        
+                                    </center>
+
+                                </ui:repeat>
+                            </p:column>
+                            <p:column headerText="Puntaje" width="70">
+                                <h:outputText value="#{cha.suma}"/>
+                            </p:column>
+                            <p:column headerText="Categoria" width="100">
+                                <h:outputText value="#{cha.categoria}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </div>
+            </div>
+            <div class="Container100 Responsive100 NoIndent">
+                <div class="Container100">
+                    <div class="Card">
+                        <div class="CardTopic TexAlCenter">Perfil de Clima Familiar</div>
+                        <div class="SeparatorFull"></div>
+                        <h:form id="chart">
+                            <p:chart id="line" type="line" model="#{chartTcfsoControlador.lineChartModel}" responsive="true"/>    
+                            <div class="EmptyBox40"/>
+                            <center>
+                                <p:button outcome="/paginas/home.jsf" value="Terminar" icon="fa fa-close"/>    
+                            </center>
+                        </h:form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

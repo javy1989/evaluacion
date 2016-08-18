@@ -1,0 +1,196 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="/WEB-INF/template-home.xhtml">
+    <ui:define name="content">
+        <div class="Container Responsive100 ui-fluid">
+            <div class="Container100">
+                <div class="Card">
+                    <h:form id="form">
+                        <p:panel header="Busqueda Pregunta">
+                            <p:panelGrid columns="6" 
+                                         style="border: 0px none;background-color: transparent;" 
+                                         styleClass="ui-pagrelgrid-blank" 
+                                         layout="grid"
+                                         columnClasses="ui-grid-col-1,ui-grid-col-3,ui-grid-col-col-1,ui-grid-col-3,ui-grid-col-1,ui-grid-col-3">
+                                <h:outputText value="Test" style="font-weight: bold;"/>
+                                <p:selectOneMenu id="cmbTest" value="#{preguntaControler.idBusTest}" >
+                                    <f:selectItem itemValue="0" itemLabel="--Seleccione--" noSelectionOption="true"/>
+                                    <f:selectItems value="#{preguntaControler.busTest}" var="test"
+                                                   itemLabel="#{test.descripcion}"
+                                                   itemValue="#{test.idtest}">
+                                    </f:selectItems>
+                                    <p:ajax event="change" listener="#{preguntaControler.cargaClase()}" update="cmbClase cmbSubClase @this"/>
+                                </p:selectOneMenu>
+
+                                <h:outputText value="Clase"/>
+                                <p:selectOneMenu id="cmbClase" value="#{preguntaControler.idBusClase}" >
+                                    <f:selectItem itemValue="0" itemLabel="--Seleccione--" noSelectionOption="true"/>
+                                    <f:selectItems value="#{preguntaControler.busClase}" var="clase"
+                                                   itemLabel="#{clase.detalle}"
+                                                   itemValue="#{clase.idclase}">
+                                    </f:selectItems>
+                                    <p:ajax event="change" listener="#{preguntaControler.cargaSubClase()}" update="cmbSubClase @this"/>
+                                </p:selectOneMenu>
+
+                                <h:outputText value="SubClase"/>
+                                <p:selectOneMenu id="cmbSubClase" value="#{preguntaControler.idBusSubClase}" >
+                                    <f:selectItem itemValue="0" itemLabel="--Seleccione--" noSelectionOption="true"/>
+                                    <f:selectItems value="#{preguntaControler.busSubclase}" var="subclase"
+                                                   itemLabel="#{subclase.detalle}"
+                                                   itemValue="#{subclase.subclasePK.idsubclase}">
+                                    </f:selectItems>
+                                    <p:ajax event="change" update="@this"/>
+                                </p:selectOneMenu>
+                            </p:panelGrid>
+                            <div class="EmptyBox30"/>
+                            <p:commandButton value="Buscar" action="#{preguntaControler.listarPregunta()}" icon="fa fa-search" styleClass="CyanButton" style="width:  auto;" update="@form" process="@this"/>
+                            <p:commandButton value="Nuevo" icon="fa fa-list-alt" styleClass="CyanButton" style="width: auto;" process="@this" actionListener="#{preguntaControler.nuevaPregunta()}" oncomplete="PF('dlgPregunta').show();" update=":frmPregunta"/>
+                        </p:panel>
+                        <div class="EmptyBox40"/>
+
+                        <p:dataTable id="list" value="#{preguntaControler.listPregunta}" var="preg"
+                                     rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"  reflow="true"
+                                     selectionMode="single" 
+                                     selection="#{preguntaControler.preguntaSelec}" 
+                                     rowKey="#{preg}" scrollable="true" scrollWidth="100%">
+
+                            <p:column headerText="Id" width="50">
+                                <h:outputText value="#{preg.preguntaPK.idpregunta}"/>
+                            </p:column>
+                            <p:column headerText="Clase">
+                                <h:outputText value="#{preg.subclase.clase.detalle}"/>
+                            </p:column>
+
+                            <p:column headerText="SubClase">
+                                <h:outputText value="#{preg.subclase.detalle}"/>
+                            </p:column>
+
+                            <p:column headerText="Pregunta">
+                                <h:outputText value="#{preg.detalle}"/>
+                            </p:column>
+
+                            <p:column headerText="Acciones">
+                                <p:commandButton value="Seleccionar" icon="fa fa-edit" style="width: auto;" onclick="PF('dlgPregunta').show();" update=":frmPregunta" process="@this">
+                                    <f:setPropertyActionListener  value="#{preg}" target="#{preguntaControler.preguntaSelec}"/>
+                                </p:commandButton>
+                            </p:column>
+
+                        </p:dataTable>
+                    </h:form>
+                    <p:dialog header="Pregunta" id="pregun" widgetVar="dlgPregunta" modal="true" height="500" resizable="false" responsive="true" > 
+                        <h:form id="frmPregunta">
+                            <div class="Container100 ui-fluid">
+                                <p:panelGrid columns="2" rendered="#{not empty preguntaControler.preguntaSelec}"
+                                             style="border: 0px none;background-color: transparent;" 
+                                             styleClass="ui-pagrelgrid-blank" 
+                                             layout="grid"
+                                             columnClasses="ui-grid-col-4,ui-grid-col-8">
+
+                                    <h:outputLabel value="Test" for="cmbTestDlg" />
+                                    <p:selectOneMenu id="cmbTestDlg" value="#{preguntaControler.preguntaSelec.subclase.clase.idtest.idtest}">
+                                        <f:selectItem itemValue="0" itemLabel="--Seleccione--" noSelectionOption="true"/>
+                                        <f:selectItems value="#{preguntaControler.listTest}" var="t"
+                                                       itemValue="#{t.idtest}"
+                                                       itemLabel="#{t.descripcion}">
+                                        </f:selectItems>
+                                        <p:ajax event="change" listener="#{preguntaControler.cargarClaseDlg()}" update="cmbClaseDlg @this"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value="Clase" for="cmbClaseDlg" />
+                                    <p:selectOneMenu id="cmbClaseDlg" value="#{preguntaControler.preguntaSelec.preguntaPK.idclase}">
+                                        <f:selectItem itemValue="0" itemLabel="--Seleccione--" noSelectionOption="true"/>
+                                        <f:selectItems value="#{preguntaControler.listClase}" var="cl"
+                                                       itemLabel="#{cl.detalle}"
+                                                       itemValue="#{cl.idclase}">
+                                        </f:selectItems>
+                                        <p:ajax event="change" listener="#{preguntaControler.cargaSubClaseDlg()}" update="cmbSubClaseDlg"/>
+                                    </p:selectOneMenu>
+
+
+                                    <h:outputLabel value="SubClase" for="cmbSubClaseDlg"/>
+                                    <p:selectOneMenu id="cmbSubClaseDlg" value="#{preguntaControler.preguntaSelec.preguntaPK.idsubclase}">
+                                        <f:selectItem itemValue="0" itemLabel="--Seleccione--" noSelectionOption="true"/>
+                                        <f:selectItems value="#{preguntaControler.listSubclase}" var="sc"
+                                                       itemValue="#{sc.subclasePK.idsubclase}"
+                                                       itemLabel="#{sc.detalle}">
+                                        </f:selectItems>
+                                        <p:ajax event="change" update="@this"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value="Grupo Respuesta"/>
+                                    <p:selectOneMenu id="cmbGrpDlg" value="#{preguntaControler.preguntaSelec.idgruporespuesta.idgruporespuesta}" >
+                                        <f:selectItem itemValue="0" itemLabel="--Seleccione" noSelectionOption="true"/>
+                                        <f:selectItems value="#{preguntaControler.listaGrupoRespuesta}"
+                                                       var="gr"
+                                                       itemLabel="#{gr.detalle}"
+                                                       itemValue="#{gr.idgruporespuesta}">
+                                        </f:selectItems>
+                                        <p:ajax event="change" listener="#{preguntaControler.cargaRespuestaDlg()}" update="@this cmbResDlg"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value="Respuesta"/>
+                                    <p:selectOneMenu id="cmbResDlg" value="#{preguntaControler.idRespuesta}">
+                                        <f:selectItem itemValue="0" itemLabel="--Seleccione--" />
+                                        <f:selectItems value="#{preguntaControler.listaRespuesta}"
+                                                       var="r"
+                                                       itemLabel="#{r.descripcion}"
+                                                       itemValue="#{r.idrespuesta}">
+                                        </f:selectItems>
+                                        <p:ajax event="change" update="@this"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value="Tipo"/>
+                                    <p:selectOneMenu id="cmbTDlg" value="#{preguntaControler.preguntaSelec.tipo}" >
+                                        <f:selectItem itemValue="#{null}" itemLabel="--Seleccione" noSelectionOption="true" />
+                                        <f:selectItem itemValue="A" itemLabel="Abierta"/>
+                                        <f:selectItem itemValue="C" itemLabel="Cerrada"/>
+                                        <p:ajax event="change" update="@this"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value="Pregunta"/>
+                                    <p:inputTextarea value="#{preguntaControler.preguntaSelec.detalle}">
+                                        <p:ajax update="@this"/>
+                                    </p:inputTextarea>
+
+                                    <p:panel header="Imagen" style="width: 500px;">
+                                        <p:panelGrid columns="2" styleClass="ui-panelgrid-black ui-responsive" 
+                                                     style="border: 0px none;background-color: transparent;" 
+                                                     layout="grid">
+                                            <p:outputPanel id="incluido">
+                                                <iframe src="#{preguntaControler.urlImg}" width="230" height="180">
+                                                </iframe>    
+                                            </p:outputPanel>
+                                            <p:fileUpload   mode="advanced" 
+                                                            label="Seleccionar" 
+                                                            invalidFileMessage="Tipo de archivo no válido" 
+                                                            invalidSizeMessage="archivo muy grande" 
+                                                            cancelLabel="Cancelar" 
+                                                            uploadLabel="Subir" 
+                                                            previewWidth="20"  
+                                                            dragDropSupport="false" 
+                                                            update="incluido,:growl" 
+                                                            sizeLimit="5120000"
+                                                            allowTypes="/(\.|\/)(jpe?g|png)$/" fileUploadListener="#{preguntaControler.handleFileUpload}"/>  
+                                        </p:panelGrid>
+                                    </p:panel>
+
+                                </p:panelGrid>
+                            </div>
+
+                            <div class="Separator"></div>
+                            <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank">
+                                <p:commandButton value="Cancelar" icon="fa fa-life-bouy" styleClass="GreenButton" actionListener="#{preguntaControler.reset()}" oncomplete="PF('dlgPregunta').hide();" process="@this" style="width: auto;"/>    
+                                <p:commandButton value="Guardar" icon="fa fa-save" styleClass="GreenButton" actionListener="#{preguntaControler.guardar()}" update="form" process="@this" oncomplete="PF('dlgPregunta').hide();" style="width: auto;"/>
+                            </p:panelGrid>
+                        </h:form>
+                    </p:dialog>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

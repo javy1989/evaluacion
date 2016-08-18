@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template-home.xhtml">
+
+
+    <ui:define name="content">
+        <div class="Container  ui-fluid">
+            <div class="Container100">
+                <div class="Card">
+                    <h:form id="forma">
+                        <div class="CardTopic TexAlCenter">Estimado padre de familia:</div>
+                        <div class="SeparatorFull"/>
+                        <div class="Container100 Responsive50">
+                            <div class="EmptyBox10"/>
+                            <span class="Leaden Fs14 FontLight">
+                                Con el fin de contribuir al mejoramiento continuo de nuestra institución queremos conocer su grado de satisfacción con respecto a diferentes aspectos relacionados con el servicio educativo y los servicios complementarios que ofrece el colegio.
+                            </span>
+                        </div>
+                            <f:metadata>
+                                <f:event type="preRenderView" listener="#{inicioTsapControler.init()}"/>
+                            </f:metadata>
+                        <div class="EmptyBox20"/>
+                        <center>
+                            <p:commandButton value="Iniciar Encuesta" action="#{satisfaccionPadreControler.init()}" styleClass="CyanButton" icon="fa fa-star Fs16 White" style="width: auto;" rendered="#{inicioTsapControler.boton}"/>    
+                        </center>
+
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

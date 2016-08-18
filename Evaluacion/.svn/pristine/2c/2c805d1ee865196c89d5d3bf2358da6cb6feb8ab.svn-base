@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template-home.xhtml">
+    <ui:define name="head">
+        <script type="text/javascript">
+            if(history.forward(1)){
+                location.replace(history.forward(1));
+            }
+            
+            function skinBar() {
+                this.cfg.shadow = false;
+                this.cfg.title = '';
+                this.cfg.seriesColors = ['#2BB673', '#F15732'];
+                this.cfg.seriesDefaults.rendererOptions.varyBarColor = true;
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#ffffff',
+                    gridLineColor: '#F5F5F5',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#666F77'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    lineWidth: 1,
+                    renderer: $.jqplot.BarRenderer,
+                    markerOptions: {
+                        shadow: false,
+                        size: 7,
+                        style: 'circle'
+                    }
+                }
+            }
+            
+        </script>
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="Container">
+            <div class="Container100 Responsive50">
+                <div class="Card">
+                    <div class="CardTopic TexAlCenter"></div>
+                    <div class="CardTopic">Resultados de encuesta</div>
+                    <div class="SeparatorFull"></div>
+                    <h:form id="chart">
+                        <p:chart id="bar" type="bar" model="#{chartTsapControler.barModel}" responsive="true" />
+                        <div class="EmptyBox20"/>
+                        <center>
+                            <p:button outcome="/paginas/home.jsf" value="Terminar" icon="fa fa-close"/>    
+                        </center>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

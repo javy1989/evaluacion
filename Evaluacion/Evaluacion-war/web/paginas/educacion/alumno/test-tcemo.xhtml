@@ -1,0 +1,55 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template-home.xhtml">
+    <ui:define name="content">
+        <div class="Container  ui-fluid">
+            <div class="Container100">
+                <div class="Card">
+                    <p:panel id="basic" header="#{msg.cabeceraEmociones}" style="margin-bottom: 20px;">
+                        <h:panelGrid columns="1">
+                            <h:outputText value="#{msg.primerMensajeEmocion}" />
+                            <p/>
+                            <h:outputText value="#{msg.primeraRespuestaEmocion}" />
+                            
+                            <h:outputText value="#{msg.segundaRespuestaEmocion}"/>
+                            <h:outputText value="#{msg.terceraRespuestaEmocion}"/>
+                            <h:outputText value="#{msg.cuartaRespuestaEmocion}"/>
+                            <h:outputText value="#{msg.quintaRespuestaEmocion}"/>
+                        </h:panelGrid>
+                    </p:panel>
+                    <p/>
+                    <h:form id="forma">
+                        <p:dataTable id="datos" value="#{testTemoControlador.listaRespuestaUsuario}" var="resp"
+                                     rows="10"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="10,20,30" 
+                                     >
+                            <p:column headerText="Descripcion Pregunta" >
+                                <h:outputText value="#{resp.pregunta.detalle}"/>
+                            </p:column>
+                            <p:column headerText="Respuestas" width="300">
+                                <p:selectOneRadio columns="6" layout="grid" value="#{resp.respuesta.idrespuesta}" styleClass="selectRadio" rendered="#{resp.pregunta.tipo=='C'}" required="true" requiredMessage="Responder pregunta #{resp.pregunta.preguntaPK.idpregunta}">
+                                    <f:selectItems var="res" value="#{testTemoControlador.getListaRespuesta(resp.pregunta)}"
+                                                   itemValue="#{res.idrespuesta}"
+                                                   itemLabel="#{res.codigo}">
+                                    </f:selectItems>
+                                </p:selectOneRadio>
+                            </p:column>
+                        </p:dataTable>
+                        <center>
+                            <br/>
+                            <p:commandButton value="Guardar" action="#{testTemoControlador.guardar()}" rendered="#{testTemoControlador.listaRespuestaUsuario.size()>0}" update=":growl" styleClass="CyanButton" 
+                                                 icon="fa fa-save"
+                                                 style="width: auto;"/>
+                            <p:button value="Cancelar" outcome="/paginas/home.jsf" style="width:  auto;" icon="fa fa-ban" styleClass="CyanButton"/>
+                        </center>
+                    </h:form> 
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

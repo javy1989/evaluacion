@@ -1,0 +1,65 @@
+    <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+    <ui:define name="content">
+        <div class="EmptyBox100"/>
+        <div class="Container100 NoIndent" id="volt-customers" style="background-color:#F0F2F5; padding:0px 3rem;">
+            <div class="EmptyBox40"></div>
+
+            <h1 class="FontVoltRegular Fs30 Leaden TexAlCenter">PLataforma de Pruebas</h1>
+            <div class="EmptyBox50"></div>
+            <div class="Wid70 MarAuto">
+                <h:form>
+                    <div class="Container25 Responsive100">
+                        <div class="Container100 TexAlCenter">
+                            <div class="EmptyBox20"></div>
+                            <p:commandLink action="/login.jsf">
+                                <h:graphicImage name="student.png" library="images" style="width:150px; height:150px;"/>    
+                            </p:commandLink>
+
+                            <div class="EmptyBox20"></div>
+                            <span class="FontVoltSemiBold DispBlock">—Alumno—</span>
+                        </div>
+                    </div>
+                    <div class="Container25 Responsive100">
+                        <div class="Container100 TexAlCenter">
+                            <div class="EmptyBox20"></div>
+                            <p:commandLink action="/login.jsf">
+                                <h:graphicImage name="teacher.png" library="images" style="width:150px; height:150px;"/>    
+                            </p:commandLink>
+                            <div class="EmptyBox20"></div>
+                            <span class="FontVoltSemiBold DispBlock">—Docente—</span>
+                        </div>
+                    </div>
+                    <div class="Container25 Responsive100">
+                        <div class="Container100 TexAlCenter">
+                            <div class="EmptyBox20"></div>
+                            <p:commandLink action="/login.jsf">
+                                <h:graphicImage name="family.png" library="images" style="width:150px; height:150px;"/>    
+                            </p:commandLink>
+                            <div class="EmptyBox20"></div>
+                            <span class="FontVoltSemiBold DispBlock">—Representante—</span>
+                        </div>
+                    </div>
+                    
+                    <div class="Container25 Responsive100">
+                        <div class="Container100 TexAlCenter">
+                            <div class="EmptyBox20"></div>
+                            <p:commandLink action="/loginadm.jsf">
+                                <h:graphicImage name="administrator.png" library="images" style="width:150px; height:150px;"/>    
+                            </p:commandLink>
+                            <div class="EmptyBox20"></div>
+                            <span class="FontVoltSemiBold DispBlock">—Administrador—</span>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+            <div class="EmptyBox50"></div>
+
+        </div>
+    </ui:define>
+
+</ui:composition>

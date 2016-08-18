@@ -1,0 +1,178 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+    <application>
+        <resource-bundle>
+            <base-name>/message.message</base-name>
+            <var>msg</var>
+        </resource-bundle>
+    </application>
+    
+    <navigation-rule>
+        <from-view-id>/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>logeado</from-outcome>
+            <to-view-id>/paginas/home.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>fallo</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/loginadm.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>logeadoAdm</from-outcome>
+            <to-view-id>/paginas/home.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>fallo</from-outcome>
+            <to-view-id>/loginadm.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/paginas/sistema/psicologo/lista-test.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{detalleTestControlador.init()}</from-action>
+            <from-outcome>continua</from-outcome>
+            <to-view-id>/paginas/sistema/psicologo/detalle-test.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{detalleTestControlador.init()}</from-action>
+            <from-outcome>fallo</from-outcome>
+            <to-view-id>/paginas/sistema/psicologo/lista-test.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{detalleTestControlador.modificar()}</from-action>
+            <from-outcome>modificar</from-outcome>
+            <to-view-id>/paginas/sistema/psicologo/detalle-test.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{detalleTestControlador.modificar()}</from-action>
+            <from-outcome>fallo</from-outcome>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/paginas/sistema/psicologo/detalle-test.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>exito</from-outcome>
+            <to-view-id>/paginas/sistema/psicologo/lista-test.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>fallo</from-outcome>
+            <to-view-id>/paginas/sistema/psicologo/lista-test.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/paginas/educacion/representante/inicio-tsap.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{satisfaccionPadreControler.init()}</from-action>
+            <from-outcome>exito</from-outcome>
+            <to-view-id>/paginas/educacion/representante/test-tsap.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{satisfaccionPadreControler.init()}</from-action>
+            <from-outcome>fallo</from-outcome>
+            <to-view-id>/paginas/educacion/representante/inicio-tsap.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/paginas/educacion/representante/test-tsap.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>fallo</from-outcome>
+            <to-view-id>/paginas/educacion/representante/test-tsap.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>exito</from-outcome>
+            <to-view-id>/paginas/educacion/representante/chart-tsap.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/paginas/educacion/alumno/inicio-tcfso.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{testCfsoControler.init()}</from-action>
+            <from-outcome>exito</from-outcome>
+            <to-view-id>/paginas/educacion/alumno/test-tcfso.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>fallo</from-outcome>
+            <to-view-id>/paginas/educacion/alumno/inicio-tcfso.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/paginas/educacion/alumno/test-tcfso.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{testCfsoControler.guardar()}</from-action>
+            <from-outcome>exito</from-outcome>
+            <to-view-id>/paginas/educacion/alumno/chart-tcfso.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>fallo</from-outcome>
+            <to-view-id>/paginas/educacion/alumno/test-tcfso.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/paginas/educacion/alumno/inicio-tcemo.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{testTemoControlador.init()}</from-action>
+            <from-outcome>exito</from-outcome>
+            <to-view-id>/paginas/educacion/alumno/test-tcemo.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>fallo</from-outcome>
+            <to-view-id>/paginas/educacion/alumno/inicio-tcemo.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/paginas/educacion/alumno/test-tcemo.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{testTemoControlador.guardar()}</from-action>
+            <from-outcome>exito</from-outcome>
+            <to-view-id>/paginas/educacion/alumno/chart-tcemo.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>fallo</from-outcome>
+            <to-view-id>/paginas/educacion/alumno/test-tcemo.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    
+    <navigation-rule>
+        <from-view-id>/paginas/educacion/alumno/inicio-tadi.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{testTadiControler.init()}</from-action>
+            <from-outcome>exito</from-outcome>
+            <to-view-id>/paginas/educacion/alumno/test-tadi.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>fallo</from-outcome>
+            <to-view-id>/paginas/educacion/alumno/inicio-tadi.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+
+</faces-config>

@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template-cron.xhtml">
+    <ui:define name="head">
+        <script>
+            window.onbeforeunload=confimar();
+            function confirmar(){
+                alert("salio");
+            }
+        </script>
+    </ui:define>
+    <ui:define name="content">
+        <div class="Container  ui-fluid">
+            <div class="Container100">
+                <div class="Card">
+                    <p/>
+                    <h:form id="forma">
+                        <h:outputText id="timer" value="#{testTadiControler.tiempoTranscurrido}" class="Fs16 FontBold"/>
+                        <p:poll id="poll" widgetVar="poll" interval="1" listener="#{testTadiControler.cron()}" update="timer" stop="true"/>
+                    </h:form> 
+                    <p:dialog id="timerFinal" widgetVar="dialogTimer" header="Final out" closable="false" resizable="false" modal="true">
+                        <h:form>
+                            <p:panelGrid columns="1">
+                                <h:outputLabel value="se termino el tiempo"/>
+                            </p:panelGrid>
+                        </h:form>
+                    </p:dialog>
+                    <h:form id="remote">
+                        <p:remoteCommand name="reset" actionListener="#{testTadiControler.reset()}"/>    
+                    </h:form>
+
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
